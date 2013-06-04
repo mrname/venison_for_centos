@@ -1,6 +1,6 @@
 About
 ============================
-This script is designed to automate the deployment of WordPress on a fresh (ve) server installation using an Nginx stack. It is an adaption the Venison deploy script written by TJ Stein:
+This script is designed to automate the deployment of WordPress on a fresh (ve) server installation using an Nginx stack. It is an adaption of the Venison deploy script written by TJ Stein:
 
 https://github.com/tjstein/venison
 
@@ -9,7 +9,7 @@ His script has been modified to operate on CentOS, and adds some extra features 
 
 Overview
 ============================
-This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. All packages are installed through aptitude for future upgrade ease.
+This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. All packages are installed through yum for future upgrade ease.
 
 NOTE: The script disables SSH root login, sets up a sudo user, and optionally changes the SSH port for server security. At the top of the script, you can see the variables that should be set prior to running the script. All variables should have value, otherwise the script will not run.
 
