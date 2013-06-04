@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #-- User Defined Variables --#
-hostname=''             #Your hostname (e.g. example.com). This will also be used for the SiteUrl and Home Of The WP Install
+hostname=''             #Your hostname (e.g. example.com). This will also be used for the SiteUrl/Home Of The WP Install
 sudo_user=''            #Your sudo username
 sudo_user_passwd=''     #Your sudo user password
 root_passwd=''          #Your new root password
