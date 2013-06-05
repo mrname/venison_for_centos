@@ -473,6 +473,7 @@ check_vars()
     return
   else
     echo "Value of variables cannot be empty."
+    exit
   fi
 }
 
@@ -482,6 +483,9 @@ cleanup()
 }
 
 #-- Function calls and flow of execution --#
+
+#Get User-Defined Variables
+get_vars
 
 # make sure we are running Ubuntu 11.04
 os_check
