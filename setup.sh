@@ -8,9 +8,9 @@ read hostname
 echo -n "Enter The Name Of Your Sudo User: "
 read sudo_user
 echo -n "Enter The Password For Your Sudo User: "
-read sudo_user_passwd
+read -s sudo_user_passwd
 echo -n "Enter Your New ROOT Password: "
-read root_passwd
+read -s root_passwd
 echo -n "Enter Your Desired SSH Port: "
 read ssh_port
 echo -n "Enter The Title Of Your Website: "
@@ -18,7 +18,7 @@ read wptitle
 echo -n "Enter Your WordPress Admin Username: "
 read wpuser
 echo -n "Enter Your WordPress Admin Password: "
-read wppass
+read -s wppass
 echo -n "Enter Your WordPress Admin Email Address: "
 read wpemail
 
