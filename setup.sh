@@ -8,9 +8,9 @@ read hostname
 echo -n "Enter The Name Of Your Sudo User: "
 read sudo_user
 echo -n "Enter The Password For Your Sudo User: "
-read sudo_user_passwd
+read -s sudo_user_passwd
 echo -n "Enter Your New ROOT Password: "
-read root_passwd
+read -s root_passwd
 echo -n "Enter Your Desired SSH Port: "
 read ssh_port
 echo -n "Enter The Title Of Your Website: "
@@ -18,7 +18,7 @@ read wptitle
 echo -n "Enter Your WordPress Admin Username: "
 read wpuser
 echo -n "Enter Your WordPress Admin Password: "
-read wppass
+read -s wppass
 echo -n "Enter Your WordPress Admin Email Address: "
 read wpemail
 
@@ -382,15 +382,22 @@ configure_wp()
 install_monit()
 {
   echo -n "Setting up Monit... "
-  yum -y install monit > /dev/null 2>&1
+  #yum -y install monit > /dev/null 2>&1
+  cd tmp
+  wget http://mmonit.com/monit/dist/binary/5.5.1/monit-5.5.1-linux-x64.tar.gz
+  tar xfz monit-5.5.1-linux-x64.tar.gz
+  cp monit-5.5.1-linux-x64/bin/monit /usr/bin
   #perl -p -i -e 's|startup=0|startup=1|g;' /etc/default/monit
-  mv /etc/monit.conf /etc/monit.conf.bak
-  cp files/monitrc /etc/monit.conf
-  chmod 700 /etc/monit.conf
-  sed -i -r "s/mydomain.com/$hostname/g" /etc/monit.conf
-  sed -i -r "s/monitemail/$wpemail/g" /etc/monit.conf
-  sed -i -r "s/sshport/$ssh_port/g" /etc/monit.conf
+  #mv /etc/monit.conf /etc/monit.conf.bak
+  cp files/monitrc /etc/monitrc
+  chmod 700 /etc/monitrc
+  sed -i -r "s/mydomain.com/$hostname/g" /etc/monitrc
+  sed -i -r "s/monitemail/$wpemail/g" /etc/monitrc
+  sed -i -r "s/sshport/$ssh_port/g" /etc/monitrc
+  cp files/monit /etc/init.d/monit
+  chmod 755 /etc/init.d/monit
   /etc/init.d/monit restart > /dev/null 2>&1
+  cd ..
   echo "done."
 }
 
