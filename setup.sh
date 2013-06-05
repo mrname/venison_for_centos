@@ -190,6 +190,7 @@ install_php()
   perl -p -i -e 's|;cgi.fix_pathinfo=1|cgi.fix_pathinfo=0|g;' /etc/php.ini
   perl -p -i -e 's|;realpath_cache_size = 16k|realpath_cache_size = 128k|g;' /etc/php.ini
   perl -p -i -e 's|;realpath_cache_ttl = 120|realpath_cache_ttl = 600|g;' /etc/php.ini
+  perl -p -i -e 's|upload_max_filesize = 2M|upload_max_filesize = 10M|g;' /etc/php.ini
   perl -p -i -e 's|disable_functions =|disable_functions = "system,exec,shell_exec,passthru,escapeshellcmd,popen,pcntl_exec"|g;' /etc/php.ini
   cp files/apc.ini /etc/php.d/apc.ini
   /etc/init.d/php-fpm stop > /dev/null 2>&1
