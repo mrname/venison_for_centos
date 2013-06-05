@@ -350,6 +350,7 @@ configure_wp()
   chown -R $sudo_user:$sudo_user /home/$sudo_user/$hostname
   #Run The Install
   php /home/$sudo_user/$hostname/public/wp-admin/install.php > /dev/null 2>&1
+  rm -f /home/$sudo_user/$hostname/public/wp-admin/install.php
   #Adjust The Database. Switch Permalinks, and install/enable Nginx Helper plugin
   cd tmp
   wget http://downloads.wordpress.org/plugin/nginx-helper.1.7.2.zip > /dev/null 2>&1
