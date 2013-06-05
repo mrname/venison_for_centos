@@ -1,5 +1,7 @@
 #!/bin/bash
 
+get_vars()
+{
 #Prompt For User Variables
 echo "Welcome To Venison For CentOS!!!!"
 echo ""
@@ -7,21 +9,52 @@ echo -n "Enter The Hostname Of Your Website: "
 read hostname
 echo -n "Enter The Name Of Your Sudo User: "
 read sudo_user
-echo -n "Enter The Password For Your Sudo User: "
-read -s sudo_user_passwd
-echo -n "Enter Your New ROOT Password: "
-read -s root_passwd
+while true; do
+    echo -n "Enter The Password For Your Sudo User: "
+    read -s sudo_user_passwd
+    echo ""
+    echo -n "Confirm Sudo User Password: "
+    read -s sudo_user_passwd_confirm
+    echo ""
+    passwd_check $sudo_user_passwd $sudo_user_passwd_confirm
+    done
+while true; do
+    echo -n "Enter Your New ROOT Password: "
+    read -s root_passwd
+    echo ""
+    echo -n "Confirm Your New ROOT Password: "
+    read -s root_passwd_confirm
+    echo ""
+    passwd_check $root_passwd $root_passwd_confirm
+    done
 echo -n "Enter Your Desired SSH Port: "
 read ssh_port
 echo -n "Enter The Title Of Your Website: "
 read wptitle
 echo -n "Enter Your WordPress Admin Username: "
 read wpuser
-echo -n "Enter Your WordPress Admin Password: "
-read -s wppass
+while true; do
+    echo -n "Enter Your WordPress Admin Password: "
+    read -s wppass
+    echo ""
+    echo -n "Confirm Your WordPress Admin Password: "
+    read -s wppass_confirm
+    echo ""
+    passwd_check $wppass $wppass_confirm
+    done
 echo -n "Enter Your WordPress Admin Email Address: "
 read wpemail
+}
 
+passwd_check()
+{
+   if [ "$1" != "$2" ]
+      then
+        echo "Passwords Do Not Match...."
+   else
+        break
+   fi
+}
 
 os_check()
 {
