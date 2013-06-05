@@ -29,7 +29,7 @@ check process nginx with pidfile /var/run/nginx.pid
     if loadavg(5min) greater than 10 for 8 cycles then restart
     if 3 restarts within 5 cycles then timeout
 
-check process mysql with pidfile /var/run/mysqld/mysqld.pid
+check process mysql with pidfile /var/lib/mysql/mydomain.com.pid
     start program = "/etc/init.d/mysql start"
     stop program = "/etc/init.d/mysql stop"
     if cpu > 60% for 2 cycles then alert
