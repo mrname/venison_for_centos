@@ -72,4 +72,11 @@ server {
         allow 127.0.0.1;
         deny all;
     }
+
+   #PageSpeed Settings
+   location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" { add_header "" ""; }
+   location ~ "^/ngx_pagespeed_static/" { }
+   location ~ "^/ngx_pagespeed_beacon$" { }
+   location /ngx_pagespeed_statistics { allow 127.0.0.1; deny all; }
+   location /ngx_pagespeed_message { allow 127.0.0.1; deny all; }
 }
