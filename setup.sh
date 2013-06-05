@@ -1,16 +1,27 @@
 #!/bin/bash
 
-#-- User Defined Variables --#
-hostname=''             #Your hostname (e.g. example.com). This will also be used for the SiteUrl/Home Of The WP Install
-sudo_user=''            #Your sudo username
-sudo_user_passwd=''     #Your sudo user password
-root_passwd=''          #Your new root password
-ssh_port=''           #Your SSH port if you wish to change it from the default
-wptitle=''              #Your WordPress site title
-wpuser=''               #Your WordPress admin username
-wppass=''               #Your WordPress admin password
-wpemail=''              #Your WordPress admin user email address
-#-- UDV End --#
+#Prompt For User Variables
+echo "Welcome To Venison For CentOS!!!!"
+echo ""
+echo -n "Enter The Hostname Of Your Website: "
+read hostname
+echo -n "Enter The Name Of Your Sudo User: "
+read sudo_user
+echo -n "Enter The Password For Your Sudo User: "
+read sudo_user_passwd
+echo -n "Enter Your New ROOT Password: "
+read root_passwd
+echo -n "Enter Your Desired SSH Port: "
+read ssh_port
+echo -n "Enter The Title Of Your Website: "
+read wptitle
+echo -n "Enter Your WordPress Admin Username: "
+read wpuser
+echo -n "Enter Your WordPress Admin Password: "
+read wppass
+echo -n "Enter Your WordPress Admin Email Address: "
+read wpemail
+
 
 os_check()
 {
@@ -274,8 +285,8 @@ config_nginx()
 
   #Configure Nginx
   cd nginx-1.4.1
-  ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin --with-http_stub_status_module --with-http_gzip_static_module --with-http_flv_module --with-http_geoip_module --with-http_mp4_module --with-http_ssl_module --add-module=../headers-more-nginx-module-master --add-module=../ngx_pagespeed-release-1.5.27.2-beta --add-module=../ngx_cache_purge-2.1 > /dev/null 2>&1
-  make > /dev/null 2>&1
+  ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin --with-http_stub_status_module --with-http_realip_module --with-http_gzip_static_module --with-http_flv_module --with-http_geoip_module --with-http_mp4_module --with-http_ssl_module --add-module=../headers-more-nginx-module-master --add-module=../ngx_pagespeed-release-1.5.27.2-beta --add-module=../ngx_cache_purge-2.1 
+  make 
   make install > /dev/null 2>&1
   cd ../../
   mkdir -p /etc/nginx/ngx_pagespeed_cache && chown $sudo_user:$sudo_user /etc/nginx/ngx_pagespeed_cache
