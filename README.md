@@ -9,9 +9,9 @@ His script has been modified to operate on CentOS, and adds some extra features 
 
 Overview
 ============================
-This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. All packages are installed through yum for future upgrade ease.
+This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. All packages are installed through yum for future upgrade ease, except for Nginx. The build of Nginx utilized requires third-party modules (discussed below). As a result, it needs to be compiled. 
 
-NOTE: The script disables SSH root login, sets up a sudo user, and optionally changes the SSH port for server security. At the top of the script, you can see the variables that should be set prior to running the script. All variables should have value, otherwise the script will not run.
+NOTE: The script disables SSH root login, sets up a sudo user, and optionally changes the SSH port for server security. When you run the setup script, you will be prompted for these values. It is HIGHLY RECOMMENDED that you change your SSH port to something unique, although fail2ban is active upon deployment. 
 
 
 Usage
@@ -22,12 +22,9 @@ Usage
 	- tar -xzvf venison.tar.gz
 4. Enter setup directory:
 	- cd venison
-5. Edit script variables for your configuration: 
-	- vim setup.sh
-	- Edit lines 4-12 to match your needs
-	- save the changes
 5. sh setup.sh
 6. Let it run
+7. Enjoy the goodness, and tune as necessary!
 
 
 Notes
@@ -37,11 +34,15 @@ DO NOT LOG OUT of your root session. Once the script has completed, the root use
 This adaptation of Venison includes the following new features:
 
 - Google Pagespeed Module For Nginx
+      https://developers.google.com/speed/pagespeed/ngx
 - Cache Purge Module For Nginx
+      https://github.com/perusio/nginx-cache-purge
 - Headers More Module For Nginx
-- Fail2Ban
+      http://wiki.nginx.org/HttpHeadersMoreModule
+- Fail2Ban - AutoBanning Software To Prevent Brute Force Attacks
+      http://www.fail2ban.org/wiki/index.php/Main_Page
 
-All Nginx modules are active on the inital WordPress deployment, and fail2Ban is immediately active, blocking the SSH port. The WordPress install comes with the Nginx Helper plugin, which automatically purges the Nginx cache when content is updated. Although the plugin is active, it needs to have cache purging turned on, and settings configured. 
+All Nginx modules are active on the inital WordPress deployment, and fail2Ban is immediately active, blocking the SSH port only. The WordPress install comes with the Nginx Helper plugin, which automatically purges the Nginx cache when content is updated. Although the plugin is active, it needs to have cache purging turned on, and settings configured. PageSpeed is using default settings. Depending on your website, you might need to change these. Consult the PageSpeed documentation for more info.
 
 
 License
