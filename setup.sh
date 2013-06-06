@@ -262,7 +262,7 @@ install_mysql()
   mv /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.`date "+%Y-%m-%d"`
   mv /etc/my.cnf.d/client.cnf /etc/my.cnf.d/client.cnf.`date "+%Y-%m-%d"`
   cp files/server.cnf /etc/my.cnf.d/server.cnf
-  cp files.client.cnf /etc/my.cnf.d/client.cnf
+  cp files/client.cnf /etc/my.cnf.d/client.cnf
   touch /var/lib/mysql/mysql-slow.log
   chown mysql:mysql /var/lib/mysql/mysql-slow.log
   /etc/init.d/mysql start > /dev/null 2>&1
