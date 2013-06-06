@@ -249,7 +249,6 @@ install_mysql()
   #echo "mysql-server mysql-server/root_password select $MYSQL_PASS" | debconf-set-selections
   #echo "mysql-server mysql-server/root_password_again select $MYSQL_PASS" | debconf-set-selections
   mkdir /var/run/mysqld
-  chown mysql:mysql /var/run/mysqld
   yum -y install MariaDB-server MariaDB-client MariaDB-shared > /dev/null 2>&1
   
 #  cat <<EOF > /root/.my.cnf
@@ -264,6 +263,7 @@ install_mysql()
   cp files/server.cnf /etc/my.cnf.d/server.cnf
   cp files/client.cnf /etc/my.cnf.d/client.cnf
   touch /var/lib/mysql/mysql-slow.log
+  chown mysql:mysql /var/run/mysqld
   chown mysql:mysql /var/lib/mysql/mysql-slow.log
   /etc/init.d/mysql start > /dev/null 2>&1
   echo "done."
