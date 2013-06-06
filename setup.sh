@@ -248,6 +248,8 @@ install_mysql()
   MYSQL_PASS=`echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c 15)`
   #echo "mysql-server mysql-server/root_password select $MYSQL_PASS" | debconf-set-selections
   #echo "mysql-server mysql-server/root_password_again select $MYSQL_PASS" | debconf-set-selections
+  mkdir /var/run/mysqld
+  chown mysql:mysql /var/run/mysqld
   yum -y install MariaDB-server MariaDB-client MariaDB-shared > /dev/null 2>&1
   
 #  cat <<EOF > /root/.my.cnf

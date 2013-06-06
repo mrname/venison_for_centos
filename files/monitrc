@@ -29,14 +29,14 @@ check process nginx with pidfile /var/run/nginx.pid
     if loadavg(5min) greater than 10 for 8 cycles then restart
     if 3 restarts within 5 cycles then timeout
 
-check process mysql with pidfile /var/lib/mysql/mydomain.com.pid
+check process mysql with pidfile /var/run/mysqld/mysqld.pid
     start program = "/etc/init.d/mysql start"
     stop program = "/etc/init.d/mysql stop"
     if cpu > 60% for 2 cycles then alert
     if cpu > 80% for 5 cycles then restart
     if totalmem > 90% for 5 cycles then restart
     if loadavg(5min) greater than 10 for 8 cycles then exec "/bin/bash -c '(date && /usr/bin/mysqladmin processlist && echo) >> /tmp/mysql_processlist'"
-    if failed unixsocket /var/lib/mysql/mysql.sock then restart
+    if failed unixsocket /var/run/mysqld/mysqld.sock then restart
     if 3 restarts within 5 cycles then timeout
 
 check process php5-fpm with pidfile /var/run/php-fpm/php-fpm.pid
