@@ -484,11 +484,11 @@ cleanup()
 
 #-- Function calls and flow of execution --#
 
+# make sure we are running CentOS 6
+os_check
+
 #Get User-Defined Variables
 get_vars
-
-# make sure we are running Ubuntu 11.04
-os_check
 
 # clean up tmp
 cleanup
@@ -496,7 +496,7 @@ cleanup
 # check value of all UDVs
 check_vars
 
-# set system locale.... not required in CentOS 6
+# set system locale
 set_locale
 
 # set host name of server
