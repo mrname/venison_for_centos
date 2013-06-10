@@ -432,7 +432,12 @@ install_fail2ban()
 echo ""
 echo -n "Installing Fail2ban......."
 yum -y install fail2ban > /dev/null 2>&1
+mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.bak
+cp files/jail.conf /etc/fail2ban/jail.conf
+cp files/http-get-dos.conf /etc/fail2ban/filter.d/
 sed -i "s/port=ssh/port=$ssh_port/g" /etc/fail2ban/jail.conf
+sed -i "s/you@example.com/$wpemail/g" /etc/fail2ban/jail.conf
+sed -i "s/fail2ban@example.com/fail2ban@$hostname/g" /etc/fail2ban/jail.conf
 /etc/init.d/fail2ban start > /dev/null 2>&1
 echo "done!"
 }
