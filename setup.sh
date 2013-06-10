@@ -396,7 +396,7 @@ configure_wp()
   sed -i "s/v_email/$wpemail/g" /home/$sudo_user/$hostname/public/wp-admin/install.php
   chown -R $sudo_user:$sudo_user /home/$sudo_user/$hostname
   #Run The Install
-  php /home/$sudo_user/$hostname/public/wp-admin/install.php 
+  php /home/$sudo_user/$hostname/public/wp-admin/install.php > /dev/null 2>&1
   rm -f /home/$sudo_user/$hostname/public/wp-admin/install.php
   #Adjust The Database. Switch Permalinks, and install/enable Nginx Helper plugin
   cd tmp
