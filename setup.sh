@@ -29,6 +29,8 @@ while true; do
     done
 echo -n "Enter Your Desired SSH Port: "
 read ssh_port
+echo -n "Choose Your Database Server (mysql,percona,mariadb): "
+read db_choice
 echo -n "Enter The Title Of Your Website: "
 read wptitle
 echo -n "Enter Your WordPress Admin Username: "
@@ -167,17 +169,6 @@ setup_tmpdir()
 }
 
 function init_repos {
-#Add MariaDB Repo
-cat <<EOF > /etc/yum.repos.d/mariadb.repo
-# MariaDB 5.5 CentOS repository list - created 2013-05-15 02:49 UTC
-# http://mariadb.org/mariadb/repositories/
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/5.5/centos6-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-EOF
-
 #Add EPEL And Remi Repo
 cd ./tmp
 wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm > /dev/null 2>&1
@@ -242,27 +233,68 @@ install_php()
   echo "done."
 }
 
-install_mysql()
+install_maria()
 {
-  echo -n "Installing MySQL... "
-  MYSQL_PASS=`echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c 15)`
-  #echo "mysql-server mysql-server/root_password select $MYSQL_PASS" | debconf-set-selections
-  #echo "mysql-server mysql-server/root_password_again select $MYSQL_PASS" | debconf-set-selections
-  yum -y install MariaDB-server MariaDB-client MariaDB-shared > /dev/null 2>&1
-  
-#  cat <<EOF > /root/.my.cnf
-#[client]
-#user=root
-#password=$MYSQL_PASS
+  #Add MariaDB Repo
+cat <<EOF > /etc/yum.repos.d/mariadb.repo
+# MariaDB 5.5 CentOS repository list - created 2013-05-15 02:49 UTC
+# http://mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/5.5/centos6-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
 
-#EOF
- # chmod 600 /root/.my.cnf
+
+  echo -n "Installing MariaDBL... "
+  MYSQL_PASS=`echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c 15)`
+  yum -y install MariaDB-server MariaDB-client MariaDB-shared > /dev/null 2>&1
   mv /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.`date "+%Y-%m-%d"`
   cp files/server.cnf /etc/my.cnf.d/server.cnf
   touch /var/lib/mysql/mysql-slow.log
   chown mysql:mysql /var/lib/mysql/mysql-slow.log
   /etc/init.d/mysql start > /dev/null 2>&1
   echo "done."
+}
+
+install_percona()
+{
+echo -n "Installing Percona....."
+rpm -Uhv http://www.percona.com/downloads/percona-release/percona-release-0.0-1.x86_64.rpm > /dev/null 2>&1
+yum -y install Percona-Server-client-55 Percona-Server-server-55 > /dev/null 2>&1
+mv /etc/my.cnf /etc/my.cnf.`date "+%Y-%m-%d"`
+  cp files/my.cnf /etc/my.cnf
+  touch /var/lib/mysql/mysql-slow.log
+  chown mysql:mysql /var/lib/mysql/mysql-slow.log
+  /etc/init.d/mysql start 
+  echo "done."
+
+}
+
+install_mysql()
+{
+echo -n "Installing MySQL......"
+yum -y install mysql-server mysql-client > /dev/null 2>&1
+mv /etc/my.cnf /etc/my.cnf.`date "+%Y-%m-%d"`
+  cp files/my.cnf /etc/my.cnf
+  touch /var/lib/mysql/mysql-slow.log
+  chown mysql:mysql /var/lib/mysql/mysql-slow.log
+  /etc/init.d/mysqld start > /dev/null 2>&1 
+  echo "done."
+}
+
+install_db_server()
+{
+if [ "$db_choice" == "percona" ]
+   then
+   install_percona
+elif [ "$db_choice" == "mariadb" ]
+   then
+   install_maria
+else
+   install_mysql
+fi
 }
 
 secure_mysql()
@@ -531,8 +563,8 @@ install_base
 # install php
 install_php
 
-# install mysql
-install_mysql
+#Install Database
+install_db_server
 
 # configure database
 config_db
