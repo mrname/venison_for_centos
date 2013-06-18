@@ -9,22 +9,32 @@ His script has been modified to operate on CentOS, and adds some extra features 
 
 Overview
 ============================
-This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. All packages are installed through yum for future upgrade ease, except for Nginx. The build of Nginx utilized requires third-party modules (discussed below). As a result, it needs to be compiled. 
+This script requires CentOS 6. It installs and configures the required OS packages and the MySQL/Nginx/PHP-FPM/Postfix deployment stack for WordPress. You can choose between MySQL, Percona, and MariaDB. All packages are installed through yum for future upgrade ease, except for Nginx. The build of Nginx utilized requires third-party modules (discussed below). As a result, it needs to be compiled. 
 
 NOTE: The script disables SSH root login, sets up a sudo user, and optionally changes the SSH port for server security. When you run the setup script, you will be prompted for these values. It is HIGHLY RECOMMENDED that you change your SSH port to something unique, although fail2ban is active upon deployment. 
 
 
-Usage
+Installation
 ============================
-1. Download the script files from the GitHub repo as a tar file. 
-2. Upload the tar file to /root. 
-3. Login to the server as root and untar the file: 
-	- tar -xzvf venison.tar.gz
-4. Enter setup directory:
-	- cd venison
-5. sh setup.sh
-6. Let it run
-7. Enjoy the goodness, and tune as necessary!
+
+Installing with git:
+
+1. git clone https://github.com/mrname/venison_for_centos.git
+2. Enter setup directory:
+        - cd venison_for_centos
+3. sh setup.sh
+4. Let it run
+5. Enjoy the goodness, and tune as necessary!
+
+Install Manually:
+
+1. Login to the server via ssh, download the script files from the GitHub repo as a zip file, and unzip:
+   wget https://github.com/mrname/venison_for_centos/archive/master.zip && unzip master.zip
+2. Enter setup directory:
+	- cd venison_for_centos
+3. sh setup.sh
+4. Let it run
+5. Enjoy the goodness, and tune as necessary!
 
 
 Notes
@@ -42,7 +52,7 @@ This adaptation of Venison includes the following new features:
 - Fail2Ban - AutoBanning Software To Prevent Brute Force Attacks
       http://www.fail2ban.org/wiki/index.php/Main_Page
 
-All Nginx modules are active on the inital WordPress deployment, and fail2Ban is immediately active, blocking the SSH port only. The WordPress install comes with the Nginx Helper plugin, which automatically purges the Nginx cache when content is updated. Although the plugin is active, it needs to have cache purging turned on, and settings configured. PageSpeed is using default settings. Depending on your website, you might need to change these. Consult the PageSpeed documentation for more info.
+All Nginx modules are active on the inital WordPress deployment, and fail2Ban is immediately active, blocking the SSH port only. Fail2Ban has a preset jail for DDOS protection which can be activated in the 'jail.conf' file. The WordPress install comes with the Nginx Helper plugin, which automatically purges the Nginx cache when content is updated. Although the plugin is active, it needs to have cache purging turned on, and settings configured. PageSpeed is using default settings. Depending on your website, you might need to change these. This can be changed in the 'pagespeed.conf' file in the document root of your website, at the same level as the 'public' directory. Consult the PageSpeed documentation for more info.
 
 
 License
