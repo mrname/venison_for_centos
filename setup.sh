@@ -341,9 +341,10 @@ config_nginx()
   wget -O headers.zip https://github.com/agentzh/headers-more-nginx-module/archive/master.zip > /dev/null 2>&1
   unzip headers.zip > /dev/null 2>&1
   #Get PageSpeed Module
-  wget https://github.com/pagespeed/ngx_pagespeed/archive/release-1.5.27.2-beta.zip > /dev/null 2>&1
-  unzip release-1.5.27.2-beta > /dev/null 2>&1
-  cd ngx_pagespeed-release-1.5.27.2-beta/
+  #wget https://github.com/pagespeed/ngx_pagespeed/archive/release-1.5.27.2-beta.zip > /dev/null 2>&1
+  wget -O pagespeed.zip https://github.com/pagespeed/ngx_pagespeed/archive/master.zip > /dev/null 2>&1
+  unzip pagespeed.zip > /dev/null 2>&1
+  cd ngx_pagespeed-master
   wget https://dl.google.com/dl/page-speed/psol/1.5.27.2.tar.gz > /dev/null 2>&1
   tar -xzf 1.5.27.2.tar.gz > /dev/null 2>&1
   cd ..
