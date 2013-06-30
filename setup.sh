@@ -399,6 +399,7 @@ configure_wp()
   echo -n "Setting up WordPress... "
   DB_PREFIX=`echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c 7)`
   mkdir -p /home/$sudo_user/$hostname/public/
+  touch /home/$sudo_user/$hostname/pagespeed.conf
   wget -q -o ~/install.log -O /home/$sudo_user/$hostname/public/latest.zip http://wordpress.org/latest.zip
   unzip /home/$sudo_user/$hostname/public/latest.zip -d /home/$sudo_user/$hostname/public/ >> ~/install.log
   mv /home/$sudo_user/$hostname/public/wordpress/* /home/$sudo_user/$hostname/public/
