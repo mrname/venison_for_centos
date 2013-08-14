@@ -345,8 +345,8 @@ config_nginx()
   wget -O pagespeed.zip https://github.com/pagespeed/ngx_pagespeed/archive/master.zip > /dev/null 2>&1
   unzip pagespeed.zip > /dev/null 2>&1
   cd ngx_pagespeed-master
-  wget https://dl.google.com/dl/page-speed/psol/1.5.27.2.tar.gz > /dev/null 2>&1
-  tar -xzf 1.5.27.2.tar.gz > /dev/null 2>&1
+  wget https://dl.google.com/dl/page-speed/psol/1.6.29.5.tar.gz > /dev/null 2>&1
+  tar -xzvf 1.6.29.5.tar.gz > /dev/null 2>&1
   cd ..
 
   #Configure Nginx
