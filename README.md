@@ -6,6 +6,18 @@ https://github.com/tjstein/venison
 
 His script has been modified to operate on CentOS, and adds some extra features as well. 
 
+IMPORTANT!!!!
+============================
+This repo has not been updated, as it has been superceded by:
+
+https://github.com/mrname/venison_plus_apache_for_centos
+
+Why?
+----------------------------
+Adding Apache into the mix makes the build more robust, especially for applications that need .htaccess (yea, I know thats lame). I have done extensive testing with siege and this build is almost as fast as venison without apache. Since I do not have time to maintiain both repos, the one listed above is maintained, and this one is not. I strongly urge you to use 'Venison Plus Apache For Centos'.
+
+It also adds some nice extra features like 'venisonctl' which allows you to add/remove domains and wordpress installations via cli, and uses the most up to date versions of nginx + pagespeed. Try it! If you are the stubbon type (Lu) then go ahead and just install this one. 
+
 
 Overview
 ============================
